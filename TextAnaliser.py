@@ -27,8 +27,16 @@ tagged =  ht.tag(word_tokenize(corpus))
 print tagged
 i = 0
 for t in tagged:
-    if(tagged[i-1]!=None and ('A' in tagged[i-1][1] or 'N' in tagged[i-1][1]) and (tagged[i][0]=='kao' or tagged[i][0]=='ko') and tagged[i+1]!=None and 'N' in tagged[i+1][1]):
-        print tagged[i-1][0].encode('utf8')+' '+tagged[i][0].encode('utf8')+' '+tagged[i+1][0].encode('utf8')
+    if(tagged[i-1]!=None and ('A' in tagged[i-1][1] or 'N' in tagged[i-1][1]) and (tagged[i][0]=='kao' or tagged[i][0]=='ko' or tagged[i][0]=='k\'o')):
+        p = i+1
+        while('A' in tagged[p][1]):
+            p=p+1
+        if('N' in tagged[p][1]):
+            simile = tagged[i-1][0].encode('utf8')+' '+tagged[i][0].encode('utf8')
+            for k in range(i+1,p+1):
+                simile = simile+' '+tagged[k][0].encode('utf8')
+        if simile!='':
+            print simile
     i = i+1
 for file in onlyfiles:
     file_object = open(mypath+file, "r")
@@ -39,8 +47,15 @@ for file in onlyfiles:
     #print tagged
     i = 0
     for t in tagged:
-        if(tagged[i-1]!=None and ('A' in tagged[i-1][1] or 'N' in tagged[i-1][1]) and (tagged[i][0]=='kao' or tagged[i][0]=='ko') and tagged[i+1]!=None and 'N' in tagged[i+1][1]):
-            print tagged[i-1][0].encode('utf8')+' '+tagged[i][0].encode('utf8')+' '+tagged[i+1][0].encode('utf8')
-            #print tagged[i-1][0].decode('ISO-8859-1').encode('utf8')+' '+tagged[i][0].decode('ISO-8859-1').encode('utf8')+' '+tagged[i+1][0].decode('ISO-8859-1').encode('utf8')
+        if(tagged[i-1]!=None and ('A' in tagged[i-1][1] or 'N' in tagged[i-1][1]) and (tagged[i][0]=='kao' or tagged[i][0]=='ko' or tagged[i][0]=='k\'o')):
+            p = i+1
+            while('A' in tagged[p][1]):
+                p=p+1
+            if('N' in tagged[p][1]):
+                simile = tagged[i-1][0].encode('utf8')+' '+tagged[i][0].encode('utf8')
+                for k in range(i+1,p+1):
+                    simile = simile+' '+tagged[k][0].encode('utf8')
+            if simile!='':
+                print simile
         i = i+1
     
